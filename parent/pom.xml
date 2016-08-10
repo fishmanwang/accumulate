@@ -23,7 +23,7 @@
         <version-maven-surefire-plugin>2.12.4</version-maven-surefire-plugin>
 
         <!-- spring framework -->
-        <version-spring>4.1.6.RELEASE</version-spring>
+        <version-spring>4.2.5.RELEASE</version-spring>
         <version-aspectj>1.8.5</version-aspectj>
         <version-quartz>2.2.1</version-quartz>
         <version-mybatis>3.1.1</version-mybatis>
@@ -38,6 +38,8 @@
         <version-commons-io>2.4</version-commons-io>
         <version-fileupload>1.2.2</version-fileupload>
         <version-beanutils>1.9.2</version-beanutils>
+
+        <version.project>1.0-SNAPSHOT</version.project>
 
         <version-servlet>2.5</version-servlet>
         <version-jsp>2.1</version-jsp>
@@ -61,11 +63,12 @@
         <version.thumbnail>0.4.7</version.thumbnail>
         <version.ganymed.ssh2>262</version.ganymed.ssh2>
         <version.solr.dataimporthandler>4.0.0</version.solr.dataimporthandler>
+        <version.spring.data.mongodb>1.9.2.RELEASE</version.spring.data.mongodb>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
+            <!--<dependency>
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
                 <version>3.0.2</version>
@@ -74,7 +77,7 @@
                 <groupId>org.jongo</groupId>
                 <artifactId>jongo</artifactId>
                 <version>1.2</version>
-            </dependency>
+            </dependency>-->
 
             <!-- mysql和连接池 -->
             <dependency>
@@ -178,6 +181,12 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aspects</artifactId>
+                <version>${version-spring}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
                 <version>${version-spring}</version>
             </dependency>
 
@@ -288,6 +297,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
                 <version>${version-spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb</artifactId>
+                <version>${version.spring.data.mongodb}</version>
             </dependency>
 
             <!-- jaxb -->
@@ -446,6 +460,14 @@
                 <artifactId>antisamy</artifactId>
                 <version>1.4</version>
             </dependency>
+
+            <!-- own modules -->
+            <dependency>
+                <groupId>com.accumulate</groupId>
+                <artifactId>infra</artifactId>
+                <version>${version.project}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
