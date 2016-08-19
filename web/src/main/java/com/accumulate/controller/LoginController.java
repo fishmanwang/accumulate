@@ -4,9 +4,12 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 /**
  * Created by Administrator on 2016/7/26.
@@ -32,6 +35,10 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("error", "用户名密码错误");
             return "redirect:/login.html";
         }
+    }
+
+    public void test(@Valid String name, BindingResult result) {
+
     }
 
 }

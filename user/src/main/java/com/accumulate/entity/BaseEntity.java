@@ -87,4 +87,6 @@ public abstract class BaseEntity implements Serializable, Persistable<String>, C
 		}
 		return entity;
 	}
+
+	public abstract void validate();
 }
