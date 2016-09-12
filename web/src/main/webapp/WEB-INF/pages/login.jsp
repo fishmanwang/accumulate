@@ -24,4 +24,7 @@
     </form>
 
 </body>
+
+<script type="application/javascript" src="/js/jquery-1.12.1.min.js"></script>
+
 </html>

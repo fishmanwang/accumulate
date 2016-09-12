@@ -64,6 +64,8 @@
         <version.ganymed.ssh2>262</version.ganymed.ssh2>
         <version.solr.dataimporthandler>4.0.0</version.solr.dataimporthandler>
         <version.spring.data.mongodb>1.9.2.RELEASE</version.spring.data.mongodb>
+        <version.spring.security>4.0.3.RELEASE</version.spring.security>
+        <version.commons.codec>1.10</version.commons.codec>
     </properties>
 
     <dependencyManagement>
@@ -163,6 +165,11 @@
                 <version>${version-spring}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${version.spring.security}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>${version-spring}</version>
@@ -251,6 +258,13 @@
                 <groupId>org.mybatis.caches</groupId>
                 <artifactId>mybatis-ehcache</artifactId>
                 <version>${version-mybatis-ehcache}</version>
+            </dependency>
+
+            <!-- 加密 -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${version.commons.codec}</version>
             </dependency>
 
             <!-- log -->

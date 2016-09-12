@@ -1,5 +1,8 @@
 package com.accumulate.exception;
 
+import sun.plugin2.message.Message;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class ApplicationException extends RuntimeException {
 
     @Override
     public String toString() {
-        if (errorCode.equals(CommonErrorCode.VALIDATION_EXCEPTION)) {
+        if (errorCode.equals(CommonErrorCode.VALIDATION_ERROR)) {
             String additionMsg = "";
             for (ValidationError v : getValidationErrors()) {
                 additionMsg = additionMsg + "\n" + v;
@@ -31,13 +34,13 @@ public class ApplicationException extends RuntimeException {
         return errorCode.getMessage();
     }
 
-    public ApplicationException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
+    public ApplicationException(ErrorCode errorCode, Object... params) {
+        super(MessageFormat.format(errorCode.getMessage(), params));
         this.errorCode = errorCode;
     }
 
-    public ApplicationException(ErrorCode errorCode, Throwable ex) {
-        super(errorCode.getMessage(), ex);
+    public ApplicationException(ErrorCode errorCode, Throwable ex, Object... params) {
+        super(MessageFormat.format(errorCode.getMessage(), params), ex);
         this.errorCode = errorCode;
     }
 

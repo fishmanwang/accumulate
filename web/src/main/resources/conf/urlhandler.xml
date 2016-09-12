@@ -58,4 +58,11 @@
         <property name="maxUploadSize" value="104857600"></property>
     </bean>-->
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.accumulate.interceptor.CommonInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

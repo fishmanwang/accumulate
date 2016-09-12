@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class RestResult<T> extends BaseDTO {
 
-    private boolean success;
+    private ResultCode code;
 
     private String message;
 
@@ -17,43 +17,43 @@ public class RestResult<T> extends BaseDTO {
 
     public static <T> RestResult<T> ok() {
         RestResult result = new RestResult();
-        result.setSuccess(true);
+        result.setCode(ResultCode.SUCCESS);
         return result;
     }
 
     public static <T> RestResult<T> ok(T data) {
         RestResult result = new RestResult();
-        result.setSuccess(true);
+        result.setCode(ResultCode.SUCCESS);
         result.setData(data);
         return result;
     }
 
     public static <T> RestResult<T> ok(List<T> dataList) {
         RestResult result = new RestResult();
-        result.setSuccess(true);
+        result.setCode(ResultCode.SUCCESS);
         result.setDataList(dataList);
         return result;
     }
 
-    public static <T> RestResult<T> fail() {
+    public static <T> RestResult<T> fail(ResultCode code) {
         RestResult result = new RestResult();
-        result.setSuccess(false);
+        result.setCode(code);
         return result;
     }
 
-    public static <T> RestResult<T> fail(String message) {
+    public static <T> RestResult<T> fail(ResultCode code, String message) {
         RestResult result = new RestResult();
-        result.setSuccess(false);
+        result.setCode(code);
         result.setMessage(message);
         return result;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public ResultCode getCode() {
+        return code;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setCode(ResultCode code) {
+        this.code = code;
     }
 
     public String getMessage() {
