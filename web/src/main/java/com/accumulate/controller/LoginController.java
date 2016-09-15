@@ -42,10 +42,4 @@ public class LoginController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "test.html", method = RequestMethod.POST)
-    public void test(@RequestBody @Valid TestDto dto) {
-        System.out.println("/login/test.html");
-    }
-
 }

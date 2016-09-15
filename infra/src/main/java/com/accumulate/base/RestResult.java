@@ -1,19 +1,14 @@
 package com.accumulate.base;
 
-import java.util.List;
-
 /**
+ * 所有rest接口统一返回格式
  * Created by tjwang on 2016/8/19.
  */
 public class RestResult<T> extends BaseDTO {
 
     private ResultCode code;
 
-    private String message;
-
     private T data;
-
-    private List<T> dataList;
 
     public static <T> RestResult<T> ok() {
         RestResult result = new RestResult();
@@ -28,23 +23,17 @@ public class RestResult<T> extends BaseDTO {
         return result;
     }
 
-    public static <T> RestResult<T> ok(List<T> dataList) {
+    public static <T> RestResult<T> fail(T data) {
         RestResult result = new RestResult();
-        result.setCode(ResultCode.SUCCESS);
-        result.setDataList(dataList);
+        result.setCode(ResultCode.ERROR);
+        result.setData(data);
         return result;
     }
 
-    public static <T> RestResult<T> fail(ResultCode code) {
+    public static <T> RestResult<T> fail(ResultCode code, T data) {
         RestResult result = new RestResult();
         result.setCode(code);
-        return result;
-    }
-
-    public static <T> RestResult<T> fail(ResultCode code, String message) {
-        RestResult result = new RestResult();
-        result.setCode(code);
-        result.setMessage(message);
+        result.setData(data);
         return result;
     }
 
@@ -56,14 +45,6 @@ public class RestResult<T> extends BaseDTO {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public T getData() {
         return data;
     }
@@ -72,11 +53,4 @@ public class RestResult<T> extends BaseDTO {
         this.data = data;
     }
 
-    public List<T> getDataList() {
-        return dataList;
-    }
-
-    public void setDataList(List<T> dataList) {
-        this.dataList = dataList;
-    }
 }

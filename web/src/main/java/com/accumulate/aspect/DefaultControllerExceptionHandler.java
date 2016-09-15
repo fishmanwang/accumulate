@@ -1,5 +1,6 @@
 package com.accumulate.aspect;
 
+import com.accumulate.base.ErrorData;
 import com.accumulate.base.RestResult;
 import com.accumulate.base.ResultCode;
 import com.accumulate.exception.ApplicationException;
@@ -26,8 +27,6 @@ public class DefaultControllerExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultControllerExceptionHandler.class);
 
-
-
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<RestResult> handlerException(Exception e) {
         logger.error("handlerException", e);
@@ -38,13 +37,7 @@ public class DefaultControllerExceptionHandler {
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<RestResult> handleApplicationException(ApplicationException ex) {
         logger.error("handleApplicationException", ex);
-        RestResult result = new RestResult();
-        if (ex.getValidationErrors().isEmpty()) {
-            result.setCode(ResultCode.ERROR);
-        } else {
-            result.setCode(ResultCode.VALIDATION_ERROR);
-        }
-        return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
+        return doHandlerApplicationException(ex);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -63,7 +56,39 @@ public class DefaultControllerExceptionHandler {
                 }
             }
         }
-        return handleApplicationException(applicationException);
+        return doHandlerApplicationException(applicationException);
+    }
+
+    private ResponseEntity<RestResult> doHandlerApplicationException(ApplicationException ex) {
+        RestResult result = new RestResult();
+        if (ex.getValidationErrors().isEmpty()) {
+            result.setCode(ResultCode.ERROR);
+        } else {
+            result.setCode(ResultCode.VALIDATION_ERROR);
+        }
+        ErrorData data = convertToErrorData(ex);
+        result.setData(data);
+        return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
+    }
+
+    private static ErrorData convertToErrorData(ApplicationException ex) {
+        ErrorData data = new ErrorData();
+        data.setErrorCode(ex.getErrorCode().getCode());
+        data.setErrorMsg(ex.getErrorCode().getMessage());
+        data.setValidationErrors(ex.getValidationErrors());
+        StringBuffer shortSb = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
+        for (StackTraceElement stack : ex.getStackTrace()) {
+            sb.append(stack);
+            sb.append("\r\n");
+            if (stack.toString().contains("com.accumulate")) {
+                shortSb.append(stack);
+                sb.append("\r\n");
+            }
+        }
+        data.setShortStack(shortSb.toString());
+        data.setFullStack(sb.toString());
+        return data;
     }
 
 
