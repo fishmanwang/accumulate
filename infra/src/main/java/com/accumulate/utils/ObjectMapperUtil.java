@@ -20,16 +20,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * 针对 jodaTime序列化很多信息的问题，自定义jodaTime的serializer。
  * Created by tjwang on 2016/8/10.
  */
-@Component
-public class ObjectMapperUtil implements InitializingBean {
+public class ObjectMapperUtil {
 
     private static ObjectMapper mapper = null;
 
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    static {
         mapper = new ObjectMapper();
         mapper.registerModule(new DateTimeModule());
     }
@@ -40,7 +38,7 @@ public class ObjectMapperUtil implements InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(ObjectMapperUtil.class);
 
-    public String write(Object o)  {
+    public static String write(Object o)  {
         Assert.notNull(o);
         String value = "{}";
         try {
@@ -51,7 +49,18 @@ public class ObjectMapperUtil implements InitializingBean {
         return value;
     }
 
-    public <T> T read(String value, Class<T> clazz) {
+    public static String writePretty(Object o)  {
+        Assert.notNull(o);
+        String value = "{}";
+        try {
+            value = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(o);
+        } catch (JsonProcessingException ex) {
+            logger.error("序化失败", ex);
+        }
+        return value;
+    }
+
+    public static <T> T read(String value, Class<T> clazz) {
         try {
             return mapper.readValue(value, clazz);
         } catch (IOException ex) {
@@ -61,7 +70,7 @@ public class ObjectMapperUtil implements InitializingBean {
         return null;
     }
 
-    private class DateTimeModule extends SimpleModule {
+    private static class DateTimeModule extends SimpleModule {
         public DateTimeModule() {
             super();
             addSerializer(DateTime.class, new DateTimeSerializer());
@@ -69,7 +78,7 @@ public class ObjectMapperUtil implements InitializingBean {
     }
 
 
-    private class DateTimeSerializer extends StdScalarSerializer<DateTime> {
+    private static class DateTimeSerializer extends StdScalarSerializer<DateTime> {
 
         protected DateTimeSerializer() {
             super(DateTime.class);

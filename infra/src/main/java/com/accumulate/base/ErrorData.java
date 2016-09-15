@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class ErrorData {
 
+    // TODO stack信息很长，为了减少传入前端的消息长度。应该设置开关，灵活配置是否开启stack信息。开发时可以打开，生产环境关闭。
     private String shortStack;
 
     private String fullStack;
