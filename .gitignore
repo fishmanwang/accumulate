@@ -1,1 +1,4 @@
 /.idea
+/infra/target/
+/user/target/
+/web/target/
