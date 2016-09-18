@@ -17,7 +17,7 @@ public class TestDto {
 
     @Valid
     @NotNull(message = "内部信息不能为空")
-    private TestInnerDto inner;
+    private TestInnerDto2 inner;
 
     @Override
     public String toString() {
@@ -43,11 +43,11 @@ public class TestDto {
         this.age = age;
     }
 
-    public TestInnerDto getInner() {
+    public TestInnerDto2 getInner() {
         return inner;
     }
 
-    public void setInner(TestInnerDto inner) {
+    public void setInner(TestInnerDto2 inner) {
         this.inner = inner;
     }
 }
