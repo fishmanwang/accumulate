@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * Created by tjwang on 2016/9/15.
  */
-public class TestInnerDto2 {
+public class TestInnerDto {
 
     @NotBlank(message = "公司信息不能为空")
     private String company;
