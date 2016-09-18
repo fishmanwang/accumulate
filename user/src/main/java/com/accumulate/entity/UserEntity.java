@@ -1,5 +1,6 @@
 package com.accumulate.entity;
 
+import com.accumulate.repository.BaseEntity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Max;

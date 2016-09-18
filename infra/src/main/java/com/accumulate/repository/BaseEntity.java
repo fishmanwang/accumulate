@@ -67,6 +67,8 @@ public abstract class BaseEntity implements Serializable, Persistable<String>, C
 	public void setLastModifiedDate(DateTime lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
 	}
+
+	public abstract void validate();
 	
 	@Override
 	public String toString() {
