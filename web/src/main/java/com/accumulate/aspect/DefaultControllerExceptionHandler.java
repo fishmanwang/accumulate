@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,23 +42,47 @@ public class DefaultControllerExceptionHandler {
         return doHandlerApplicationException(ex);
     }
 
+    /**
+     * 使用@Valid注解的Controller的参数，校验失败后，跑出此异常。
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<RestResult> handleBindException(BindException ex) {
+        logger.error("handleBindException", ex);
+        ApplicationException applicationException = handleBindingResult(ex.getBindingResult(), ex);
+        return doHandlerApplicationException(applicationException);
+    }
+
+    /**
+     * 使用@RequestBody @Valid注解的Controller参数，校验失败后，抛出此异常。
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RestResult> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         logger.error("handleMethodArgumentNotValidException", ex);
-        ApplicationException applicationException = new ApplicationException(CommonErrorCode.VALIDATION_ERROR, ex);
-        if (ex.getBindingResult() != null) {
-            for (ObjectError objectError : ex.getBindingResult().getAllErrors()) {
-                if (objectError instanceof FieldError) {
-                    FieldError fieldError = (FieldError) objectError;
-                    String key = fieldError.getField();
-                    String message = fieldError.getDefaultMessage();
+        ApplicationException applicationException =  handleBindingResult(ex.getBindingResult(), ex);
+        return doHandlerApplicationException(applicationException);
+    }
 
-                    ValidationError validationError = ValidationError.build(key, message);
-                    applicationException.getValidationErrors().add(validationError);
-                }
+    private ApplicationException handleBindingResult(BindingResult bindingResult, Exception e) {
+        ApplicationException applicationException = new ApplicationException(CommonErrorCode.VALIDATION_ERROR, e);
+        if (bindingResult == null) {
+            return applicationException;
+        }
+
+        for (ObjectError objectError : bindingResult.getAllErrors()) {
+            if (objectError instanceof FieldError) {
+                FieldError fieldError = (FieldError) objectError;
+                String key = fieldError.getField();
+                String message = fieldError.getDefaultMessage();
+
+                ValidationError validationError = ValidationError.build(key, message);
+                applicationException.getValidationErrors().add(validationError);
             }
         }
-        return doHandlerApplicationException(applicationException);
+        return applicationException;
     }
 
     private ResponseEntity<RestResult> doHandlerApplicationException(ApplicationException ex) {

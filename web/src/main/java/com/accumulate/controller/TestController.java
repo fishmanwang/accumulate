@@ -1,6 +1,7 @@
 package com.accumulate.controller;
 
 import com.accumulate.dto.TestDto;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,27 @@ public class TestController {
     @ResponseBody
     @RequestMapping(value = "/validate.html", method = RequestMethod.POST)
     public void test(@RequestBody @Valid TestDto dto) {
-        System.out.println("/login/test.html");
+        System.out.println(dto.toString());
     }
+
+    /**
+     * 测试方法
+     * var data = {name:"wang", age:30, "inner.company":"uec", "inner.locate":"chengdu"}; 注意inner对象的传值方式。
+     * $.ajax({url:"/test/validate2.html", type:"GET", data:data, dataType:"json"}, function(json){console.log(json)} );
+     * @param dto
+     */
+    @ResponseBody
+    @RequestMapping(value = "/validate2.html", method = RequestMethod.GET)
+    public void validate2(@Valid TestDto dto) {
+        System.out.println(dto.toString());
+    }
+
+    // 无效，证明@Valid只对POJO对象有用。
+//    @ResponseBody
+//    @RequestMapping(value = "/validate3.html", method = RequestMethod.GET)
+//    public void validate3(@Valid @NotBlank String name) {
+//        System.out.println(name);
+//    }
 
 
 }
