@@ -1,1 +1,8 @@
 /.idea
+infra/target/
+user/target/
+web/target/
+parent/parent.iml
+infra/infra.iml
+user/user.iml
+web/web.iml

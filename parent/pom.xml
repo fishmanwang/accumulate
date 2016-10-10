@@ -461,6 +461,13 @@
                 <version>1.4</version>
             </dependency>
 
+            <!-- email -->
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.4.7</version>
+            </dependency>
+
             <!-- own modules -->
             <dependency>
                 <groupId>com.accumulate</groupId>
