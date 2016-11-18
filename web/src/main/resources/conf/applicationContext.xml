@@ -10,6 +10,7 @@
     </context:component-scan>
 
     <import resource="shiro.xml"/>
+   <!-- <import resource="classpath*:conf/mongo.xml"/>-->
 
 
 </beans>
