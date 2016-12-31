@@ -12,6 +12,7 @@
     </context:component-scan>
 
     <mvc:annotation-driven>
+        <mvc:argument-resolvers></mvc:argument-resolvers>
         <mvc:message-converters register-defaults="false">
             <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
             <bean class="org.springframework.http.converter.StringHttpMessageConverter" />

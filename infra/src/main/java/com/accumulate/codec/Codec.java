@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
- * @author ryvius
+ * @author tjwang
  * 编解码器
  */
 public class Codec {
