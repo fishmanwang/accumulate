@@ -8,7 +8,8 @@
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
           destroy-method="close">
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/accumulate?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="username" value="root" />
         <property name="password" value="admin" />
 
@@ -34,6 +35,7 @@
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
         <!-- 配置监控统计拦截的filters -->
+        <property name="dbType" value="mysql"/>
         <property name="filters" value="wall,stat" />
     </bean>
 
@@ -44,11 +46,19 @@
         <!-- mapper和resultmap配置路径 -->
         <property name="mapperLocations">
             <list>
-                <!-- 表示在com.hoo.resultmap包或以下所有目录中，以-resultmap.xml结尾所有文件 -->
-                <value>classpath:com/accumulate/mapper/*-mapper.xml</value>
-                <value>classpath:com/accumulate/mapper/*Mapper.xml</value>
+                <value>classpath*:/mapper/*-mapper.xml</value>
+                <value>classpath*:/mapper/*Mapper.xml</value>
             </list>
         </property>
+    </bean>
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.accumulate.mapper"/>
     </bean>
 
 </beans>

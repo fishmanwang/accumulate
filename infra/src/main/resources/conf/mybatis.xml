@@ -14,7 +14,8 @@
         <typeAlias type="com.accumulate.entity.UserEntity" alias="user"/>
     </typeAliases>
 
-    <mappers>
-        <mapper resource="com/accumulate/mapper/UserMapper.xml"/>
-    </mappers>
+    <!--<mappers>
+        <mapper resource="mapper/user-mapper.xml"/>
+    </mappers>-->
+
 </configuration>

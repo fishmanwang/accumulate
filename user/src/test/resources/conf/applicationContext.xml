@@ -8,6 +8,6 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <import resource="mongo.xml"></import>
+    <import resource="datasource.xml"></import>
 
 </beans>

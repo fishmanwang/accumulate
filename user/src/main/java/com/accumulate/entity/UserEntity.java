@@ -1,6 +1,5 @@
 package com.accumulate.entity;
 
-import com.accumulate.repository.BaseEntity;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Max;
@@ -19,6 +18,8 @@ public class UserEntity extends BaseEntity {
     @Min(0)
     @Max(150)
     private Integer age;
+
+    private String password;
 
     @Override
     public void validate() {
@@ -39,5 +40,13 @@ public class UserEntity extends BaseEntity {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

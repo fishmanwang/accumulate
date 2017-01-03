@@ -7,7 +7,7 @@ import com.accumulate.entity.UserEntity;
  */
 public interface UserMapper {
 
-    void save(UserEntity user);
+    void add(UserEntity user);
 
     void update(UserEntity user);
 

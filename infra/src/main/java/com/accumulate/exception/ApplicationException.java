@@ -1,7 +1,5 @@
 package com.accumulate.exception;
 
-import sun.plugin2.message.Message;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class ApplicationException extends RuntimeException {
     }
 
     public ApplicationException(ErrorCode errorCode, String message, Throwable ex) {
-        super(message,ex);
+        super(message, ex);
         this.errorCode = errorCode;
     }
 
