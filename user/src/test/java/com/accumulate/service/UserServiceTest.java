@@ -1,7 +1,7 @@
 package com.accumulate.service;
 
 import com.accumulate.base.BaseTest;
-import com.accumulate.entity.UserEntity;
+import com.accumulate.entity.User;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -16,9 +16,9 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void add() {
-        UserEntity user = new UserEntity();
+        User user = new User();
         user.setName("wang");
-        user.setAge(30);
+        user.setAge((short) 30);
         user.setPassword("123456");
         userService.add(user);
     }

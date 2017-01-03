@@ -1,6 +1,6 @@
 package com.accumulate.service.impl;
 
-import com.accumulate.entity.UserEntity;
+import com.accumulate.entity.User;
 import com.accumulate.mapper.UserMapper;
 import com.accumulate.service.UserService;
 import org.slf4j.Logger;
@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void add(UserEntity user) {
+    public void add(User user) {
         logger.debug("Execute UserService.add");
-        userMapper.add(user);
+        userMapper.insert(user);
     }
 }
