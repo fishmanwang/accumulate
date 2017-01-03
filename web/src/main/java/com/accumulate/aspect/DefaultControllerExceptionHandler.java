@@ -102,18 +102,19 @@ public class DefaultControllerExceptionHandler {
         data.setErrorCode(ex.getErrorCode().getCode());
         data.setErrorMsg(ex.getErrorCode().getMessage());
         data.setValidationErrors(ex.getValidationErrors());
-        StringBuffer shortSb = new StringBuffer();
-        StringBuffer sb = new StringBuffer();
-        for (StackTraceElement stack : ex.getStackTrace()) {
-            sb.append(stack);
-            sb.append("\r\n");
-            if (stack.toString().contains("com.accumulate")) {
-                shortSb.append(stack);
-                sb.append("\r\n");
-            }
-        }
-        data.setShortStack(shortSb.toString());
-        data.setFullStack(sb.toString());
+        logger.debug(ex.getMessage(), ex);
+//        StringBuffer shortSb = new StringBuffer();
+//        StringBuffer sb = new StringBuffer();
+//        for (StackTraceElement stack : ex.getStackTrace()) {
+//            sb.append(stack);
+//            sb.append("\r\n");
+//            if (stack.toString().contains("com.accumulate")) {
+//                shortSb.append(stack);
+//                sb.append("\r\n");
+//            }
+//        }
+//        data.setShortStack(shortSb.toString());
+//        data.setFullStack(sb.toString());
         return data;
     }
 

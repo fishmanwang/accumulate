@@ -11,5 +11,8 @@
 
     <import resource="shiro.xml"/>
 
+    <import resource="classpath*:conf/datasource.xml"/>
+   <!-- <import resource="classpath*:conf/mongo.xml"/>-->
+
 
 </beans>

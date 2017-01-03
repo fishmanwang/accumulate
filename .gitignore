@@ -1,8 +1,8 @@
 /.idea
-base.iml
 /infra/target/
 /infra/infra.iml
 /user/target/
 /user/user.iml
 /web/target/
 /web/web.iml
+*.iml

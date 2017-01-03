@@ -34,6 +34,7 @@ public class TestController {
      * 测试方式，使用chrome控制台
      * var data = JSON.stringify({name:"wang", age:30, inner:{company:"", locate:"chengdu"}});
      * $.ajax({url:"/test/validate.html", type:"POST", contentType:"application/json", data:data, dataType:"json"}, function(json){console.log(json)} );
+     *
      * @param dto
      */
     @ResponseBody
@@ -46,12 +47,19 @@ public class TestController {
      * 测试方法
      * var data = {name:"wang", age:30, "inner.company":"uec", "inner.locate":"chengdu"}; 注意inner对象的传值方式。
      * $.ajax({url:"/test/validate2.html", type:"GET", data:data, dataType:"json"}, function(json){console.log(json)} );
+     *
      * @param dto
      */
     @ResponseBody
     @RequestMapping(value = "/validate2.html", method = RequestMethod.GET)
     public void validate2(@Valid TestDto dto) {
         System.out.println(dto.toString());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/exception.html", method = RequestMethod.GET)
+    public void testException() throws Exception {
+        throw new Exception("测试异常");
     }
 
     // 无效，证明@Valid只对POJO对象有用。
