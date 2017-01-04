@@ -9,6 +9,22 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <profiles>
+        <profile>
+            <id>home</id>
+            <properties>
+                <env>home</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>jayx</id>
+            <properties>
+                <env>jayx</env>
+            </properties>
+        </profile>
+
+    </profiles>
+
     <properties>
         <!-- maven插件版本号 -->
         <file_encoding>UTF-8</file_encoding>

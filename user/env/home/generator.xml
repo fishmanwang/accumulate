@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+            location="G:/study/mybatis/mysql-connector-java-5.1.33.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/accumulate?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="root" password="admin" />
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <!--
+                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+                false：默认,
+                    scale>0;length>18：使用BigDecimal;
+                    scale=0;length[10,18]：使用Long；
+                    scale=0;length[5,9]：使用Integer；
+                    scale=0;length<5：使用Short；
+             -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.accumulate.entity"
+                            targetProject="D:/projects/accumulate/user/src/main/java" />
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="D:/projects/accumulate/user/src/main/resources" />
+        <javaClientGenerator targetPackage="com.accumulate.mapper"
+                             targetProject="D:/projects/accumulate/user/src/main/java" type="XMLMAPPER" />
+        <table schema="accumulate" tableName="acc_user" domainObjectName="User"/>
+    </context>
+</generatorConfiguration>

@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <classPathEntry
-            location="G:/study/mybatis/mysql-connector-java-5.1.33.jar" />
+            location="E:/apache-maven-3.0.5/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
     <context id="context1" targetRuntime="MyBatis3">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/accumulate?useUnicode=true&amp;characterEncoding=UTF-8"
@@ -19,11 +19,11 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <javaModelGenerator targetPackage="com.accumulate.entity"
-                            targetProject="D:\projects\accumulate\user\src\main\java" />
+                            targetProject="E:/own/github/accumulate/user/src/main/java" />
         <sqlMapGenerator targetPackage="mapper"
-                         targetProject="D:\projects\accumulate\user\src\main\resources" />
+                         targetProject="E:/own/github/accumulate/user/src/main/resources" />
         <javaClientGenerator targetPackage="com.accumulate.mapper"
-                             targetProject="D:\projects\accumulate\user\src\main\java" type="XMLMAPPER" />
+                             targetProject="E:/own/github/accumulate/user/src/main/java" type="XMLMAPPER" />
         <table schema="accumulate" tableName="acc_user" domainObjectName="User"/>
     </context>
 </generatorConfiguration>

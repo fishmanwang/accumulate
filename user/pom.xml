@@ -27,6 +27,9 @@
 
     <build>
         <finalName>user</finalName>
+        <!--<filters>
+            <filter>env/${env}/config.properties</filter>
+        </filters>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -35,6 +38,9 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <configuration>
+                    <configurationFile>env/${env}/generator.xml</configurationFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
