@@ -3,7 +3,7 @@
 <generatorConfiguration>
     <classPathEntry
             location="G:/study/mybatis/mysql-connector-java-5.1.33.jar" />
-    <context id="context1" targetRuntime="MyBatis3">
+    <context id="context1" targetRuntime="MyBatis3" defaultModelType="flat">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/accumulate?useUnicode=true&amp;characterEncoding=UTF-8"
                         userId="root" password="admin" />

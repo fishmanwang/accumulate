@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-    <classPathEntry
-            location="E:/apache-maven-3.0.5/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
-    <context id="context1" targetRuntime="MyBatis3">
+    <classPathEntry location="E:/apache-maven-3.0.5/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
+    <classPathEntry location="E:/apache-maven-3.0.5/repository/com/accumulate/infra/1.0-SNAPSHOT/infra-1.0-SNAPSHOT.jar"/>
+    <context id="context1" targetRuntime="MyBatis3" defaultModelType="flat">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/accumulate?useUnicode=true&amp;characterEncoding=UTF-8"
                         userId="root" password="admin" />
@@ -19,11 +19,15 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <javaModelGenerator targetPackage="com.accumulate.entity"
-                            targetProject="E:/own/github/accumulate/user/src/main/java" />
+                            targetProject="E:/own/github/accumulate/user/src/main/java" >
+            <property name="rootClass" value="com.accumulate.entity.BaseEntity"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
         <sqlMapGenerator targetPackage="mapper"
                          targetProject="E:/own/github/accumulate/user/src/main/resources" />
         <javaClientGenerator targetPackage="com.accumulate.mapper"
                              targetProject="E:/own/github/accumulate/user/src/main/java" type="XMLMAPPER" />
         <table schema="accumulate" tableName="acc_user" domainObjectName="User"/>
+        <table schema="accumulate" tableName="acc_password_policy" domainObjectName="PasswordPolicy"/>
     </context>
 </generatorConfiguration>

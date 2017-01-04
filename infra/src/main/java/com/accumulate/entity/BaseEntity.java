@@ -7,17 +7,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by tjwang on 2017/1/3.
  */
 public class BaseEntity implements Serializable {
 
-    private String id;
+    protected Integer id;
 
-    public void validate() {
+    protected Date createTime;
 
-    }
+    protected String createBy;
+
+    protected Date updateTime;
+
+    protected String updateBy;
 
     @Override
     public String toString() {
@@ -47,4 +52,43 @@ public class BaseEntity implements Serializable {
         return entity;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
 }
