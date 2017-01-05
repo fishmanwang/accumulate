@@ -24,6 +24,9 @@
                          targetProject="D:/projects/accumulate/user/src/main/resources" />
         <javaClientGenerator targetPackage="com.accumulate.mapper"
                              targetProject="D:/projects/accumulate/user/src/main/java" type="XMLMAPPER" />
+
         <table schema="accumulate" tableName="acc_user" domainObjectName="User"/>
+        <table schema="accumulate" tableName="acc_password_policy_config" domainObjectName="PasswordPolicyConfig"/>
+
     </context>
 </generatorConfiguration>

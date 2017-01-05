@@ -5,9 +5,9 @@ CREATE TABLE acc_user(
 	age SMALLINT NOT NULL DEFAULT -1,
 	`password` CHAR(32) NOT NULL DEFAULT '',
 	create_time DATETIME NOT NULL,
-	create_by CHAR(32) NOT NULL DEFAULT '',
+	create_by INT NOT NULL DEFAULT 0,
 	update_time DATETIME NOT NULL,
-	update_by CHAR(32) NOT NULL DEFAULT ''
+	update_by INT NOT NULL DEFAULT 0
 );
 
 DROP TABLE IF EXISTS acc_password_policy_constraint;
