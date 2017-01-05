@@ -1,15 +1,9 @@
 package com.accumulate.helpers;
 
-import com.accumulate.bo.password.Constraint;
-import com.accumulate.bo.password.ExpiredWaringAction;
 import com.accumulate.dto.PasswordPolicyConfigDto;
 import com.accumulate.dto.PasswordPolicyConstraintDto;
 import com.accumulate.dto.PasswordPolicyExpirationDto;
 import com.accumulate.dto.PasswordPolicyRetryDto;
-import com.accumulate.entity.PasswordPolicyConfig;
-import com.accumulate.entity.PasswordPolicyConstraint;
-import com.accumulate.entity.PasswordPolicyExpiration;
-import com.accumulate.entity.PasswordPolicyRetry;
 
 import java.util.Date;
 
@@ -33,7 +27,6 @@ public class PasswordPolicyHelper {
         Date now = new Date();
 
         PasswordPolicyConfigDto config = new PasswordPolicyConfigDto();
-        config.setId(1);
         config.setEnable(true);
         config.setName("default");
         config.setDescription("默认密码策略");
@@ -44,6 +37,19 @@ public class PasswordPolicyHelper {
         config.setUpdateBy(0);
         config.setUpdateTime(now);
 
+        PasswordPolicyConstraintDto constraint = buildDefaultConstraint();
+        config.setConstraint(constraint);
+
+        PasswordPolicyExpirationDto expiration = buildDefaultExpiration();
+        config.setExpiration(expiration);
+
+        PasswordPolicyRetryDto retry = buildDefaultRetry();
+        config.setRetry(retry);
+
+        return config;
+    }
+
+    private static PasswordPolicyConstraintDto buildDefaultConstraint() {
         PasswordPolicyConstraintDto constraint = new PasswordPolicyConstraintDto();
         constraint.setEnable(true);
         constraint.setMin(6);
@@ -54,8 +60,10 @@ public class PasswordPolicyHelper {
         constraint.setMinLowercase(1);
         constraint.setMinUppercase(1);
         constraint.setNotBlank(false);
-        config.setConstraint(constraint);
+        return constraint;
+    }
 
+    private static PasswordPolicyExpirationDto buildDefaultExpiration() {
         PasswordPolicyExpirationDto expiration = new PasswordPolicyExpirationDto();
         expiration.setEnable(true);
         expiration.setExpiredDay(30);
@@ -66,15 +74,15 @@ public class PasswordPolicyHelper {
         expiration.setEmailExpiredMessage("尊敬的用户{{u.displayName}}你好,你账户【{{u.username}}】密码已过期，通过【忘记密码】流程重置密码。请勿回复本邮件。");
         expiration.setSmsExpiringMessage("尊敬的用户【{{u.username}}】你好,你的账户密码将在{{d}}天后过期，请及时修改密码。请勿回复本短信。");
         expiration.setSmsExpiredMessage("尊敬的用户【{{u.username}}】你好,你的账户密码已过期，通过【忘记密码】流程重置密码。请勿回复本短信。");
-        config.setExpiration(expiration);
+        return expiration;
+    }
 
+    private static PasswordPolicyRetryDto buildDefaultRetry() {
         PasswordPolicyRetryDto retry = new PasswordPolicyRetryDto();
         retry.setEnable(true);
         retry.setNum(5);
         retry.setLockTime(2);
-        config.setRetry(retry);
-
-        return config;
+        return retry;
     }
 
 }

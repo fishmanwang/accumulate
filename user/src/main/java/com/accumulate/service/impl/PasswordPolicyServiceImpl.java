@@ -1,7 +1,7 @@
 package com.accumulate.service.impl;
 
-import com.accumulate.dto.PasswordPolicyConstraintDto;
 import com.accumulate.dto.PasswordPolicyConfigDto;
+import com.accumulate.dto.PasswordPolicyConstraintDto;
 import com.accumulate.dto.PasswordPolicyExpirationDto;
 import com.accumulate.dto.PasswordPolicyRetryDto;
 import com.accumulate.entity.PasswordPolicyConfig;
@@ -19,6 +19,7 @@ import com.accumulate.utils.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -42,17 +43,7 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
     @Resource
     private PasswordPolicyRetryMapper retryMapper;
 
-    @Override
-    public int save(PasswordPolicyConfig config) {
-        Integer id = config.getId();
-        if (id == null) {
-            configMapper.insert(config);
-        } else {
-            configMapper.updateByPrimaryKey(config);
-        }
-        return config.getId();
-    }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int save(PasswordPolicyConfigDto dto) {
         logger.debug(ObjectUtils.toString(dto));
@@ -68,11 +59,13 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
             PasswordPolicyConstraint constraint = constraintDto.transfer();
             Integer id = constraintDto.getId();
             if (id == null) {
-                constraintMapper.insert(constraint);
+                logger.debug("insert constraint");
+                id = constraintMapper.insert(constraint);
             } else {
+                logger.debug("update constraint");
                 constraintMapper.updateByPrimaryKey(constraint);
             }
-            passwordPolicy.setConstraintId(constraint.getId());
+            passwordPolicy.setConstraintId(id);
         }
 
         PasswordPolicyExpirationDto expirationDto = dto.getExpiration();
@@ -80,11 +73,13 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
             PasswordPolicyExpiration expiration = expirationDto.transfer();
             Integer id = expirationDto.getId();
             if (id == null) {
-                expirationMapper.insert(expiration);
+                logger.debug("insert expiration");
+                id = expirationMapper.insert(expiration);
             } else {
+                logger.debug("update expiration");
                 expirationMapper.updateByPrimaryKey(expiration);
             }
-            passwordPolicy.setExpirationId(expiration.getId());
+            passwordPolicy.setExpirationId(id);
         }
 
         PasswordPolicyRetryDto retryDto = dto.getRetry();
@@ -92,21 +87,25 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
             PasswordPolicyRetry retry = retryDto.transfer();
             Integer id = retry.getId();
             if (id == null) {
-                retryMapper.insert(retry);
+                logger.debug("insert retry");
+                id = retryMapper.insert(retry);
             } else {
+                logger.debug("update retry");
                 retryMapper.updateByPrimaryKey(retry);
             }
-            passwordPolicy.setRetryId(retry.getId());
+            passwordPolicy.setRetryId(id);
         }
 
         Integer id = dto.getId();
         if (id == null) {
-            configMapper.insert(passwordPolicy);
+            logger.debug("insert password policy");
+            id = configMapper.insert(passwordPolicy);
         } else {
+            logger.debug("update password policy");
             configMapper.updateByPrimaryKey(passwordPolicy);
         }
 
-        return passwordPolicy.getId();
+        return id;
     }
 
 }
