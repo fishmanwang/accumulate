@@ -23,6 +23,12 @@ public class PasswordPolicyRetryDto {
         return r;
     }
 
+    public static PasswordPolicyRetryDto build(PasswordPolicyRetry retry) {
+        PasswordPolicyRetryDto dto = new PasswordPolicyRetryDto();
+        BeanUtils.copyProperties(retry, dto);
+        return dto;
+    }
+
     public Integer getId() {
         return id;
     }

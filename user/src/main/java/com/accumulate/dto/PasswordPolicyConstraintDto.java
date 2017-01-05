@@ -35,6 +35,12 @@ public class PasswordPolicyConstraintDto {
         return c;
     }
 
+    public static PasswordPolicyConstraintDto build(PasswordPolicyConstraint constraint) {
+        PasswordPolicyConstraintDto dto = new PasswordPolicyConstraintDto();
+        BeanUtils.copyProperties(constraint, dto);
+        return dto;
+    }
+
     public Integer getId() {
         return id;
     }

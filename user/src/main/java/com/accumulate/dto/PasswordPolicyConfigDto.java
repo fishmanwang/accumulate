@@ -43,6 +43,12 @@ public class PasswordPolicyConfigDto {
         return c;
     }
 
+    public static PasswordPolicyConfigDto build(PasswordPolicyConfig config) {
+        PasswordPolicyConfigDto dto = new PasswordPolicyConfigDto();
+        BeanUtils.copyProperties(config, dto);
+        return dto;
+    }
+
     public String getName() {
         return name;
     }

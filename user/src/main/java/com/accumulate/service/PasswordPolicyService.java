@@ -13,5 +13,17 @@ public interface PasswordPolicyService {
      */
     int save(PasswordPolicyConfigDto dto);
 
+    /**
+     * 查询密码配置
+     * @param id
+     * @return
+     */
+    PasswordPolicyConfigDto findById(Integer id);
+
+    /**
+     * 查找默认密码策略
+     * @return
+     */
+    PasswordPolicyConfigDto findDefault();
 
 }

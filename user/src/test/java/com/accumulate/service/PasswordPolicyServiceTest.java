@@ -3,6 +3,8 @@ package com.accumulate.service;
 import com.accumulate.base.BaseTest;
 import com.accumulate.dto.PasswordPolicyConfigDto;
 import com.accumulate.helpers.PasswordPolicyHelper;
+import com.accumulate.utils.ObjectUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,16 +21,27 @@ public class PasswordPolicyServiceTest extends BaseTest {
     private PasswordPolicyService passwordPolicyService;
 
     @Test
+    @Ignore
     public void buildDefaultPasswordConfig() {
         PasswordPolicyConfigDto dto = PasswordPolicyHelper.buildDefaultConfigDto();
         int id = passwordPolicyService.save(dto);
         assertNotNull(id);
     }
 
-    /*public static void main(String[] args) {
-        PasswordPolicyBo bo = PasswordPolicyBo.buildDefault();
+    @Test
+    public void testFindById() {
+        Integer id = 1;
+        PasswordPolicyConfigDto config = passwordPolicyService.findById(id);
+        logger.info(ObjectUtils.toString(config));
+        assertNotNull(config);
 
-        logger.info(bo.toString());
-    }*/
+    }
+
+    @Test
+    public void testFindDefault() {
+        PasswordPolicyConfigDto config = passwordPolicyService.findDefault();
+        logger.info(ObjectUtils.toString(config));
+        assertNotNull(config);
+    }
 
 }

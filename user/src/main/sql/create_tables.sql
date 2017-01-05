@@ -13,6 +13,7 @@ CREATE TABLE acc_user(
 DROP TABLE IF EXISTS acc_password_policy_constraint;
 CREATE TABLE acc_password_policy_constraint(
 	id INT PRIMARY KEY AUTO_INCREMENT,
+	`enable` TINYINT(1) NOT NULL DEFAULT FALSE COMMENT '是否启用',
 	`min` TINYINT NOT NULL DEFAULT 6 COMMENT '最小长度',
 	`max` TINYINT NOT NULL DEFAULT 100 COMMENT '最大长度',
 	max_repeat_character TINYINT NOT NULL DEFAULT 3 COMMENT '最大重复字符数',

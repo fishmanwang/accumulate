@@ -4,10 +4,7 @@ import com.accumulate.dto.PasswordPolicyConfigDto;
 import com.accumulate.dto.PasswordPolicyConstraintDto;
 import com.accumulate.dto.PasswordPolicyExpirationDto;
 import com.accumulate.dto.PasswordPolicyRetryDto;
-import com.accumulate.entity.PasswordPolicyConfig;
-import com.accumulate.entity.PasswordPolicyConstraint;
-import com.accumulate.entity.PasswordPolicyExpiration;
-import com.accumulate.entity.PasswordPolicyRetry;
+import com.accumulate.entity.*;
 import com.accumulate.exception.ApplicationException;
 import com.accumulate.exception.UserErrorCode;
 import com.accumulate.mapper.PasswordPolicyConfigMapper;
@@ -16,12 +13,15 @@ import com.accumulate.mapper.PasswordPolicyExpirationMapper;
 import com.accumulate.mapper.PasswordPolicyRetryMapper;
 import com.accumulate.service.PasswordPolicyService;
 import com.accumulate.utils.ObjectUtils;
+import com.accumulate.utils.StringUtils;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by tjwang on 2017/1/4.
@@ -108,4 +108,72 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
         return id;
     }
 
+    public PasswordPolicyConfigDto findById(Integer id) {
+        Preconditions.checkArgument(id != null);
+        PasswordPolicyConfig config = configMapper.selectByPrimaryKey(id);
+        if (config == null) {
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONFIG_NOT_EXIST, id);
+        }
+
+        PasswordPolicyConfigDto configDto = buildPasswordPolicyConfigDto(config);
+
+        return configDto;
+    }
+
+    @Override
+    public PasswordPolicyConfigDto findDefault() {
+        PasswordPolicyConfigExample ex = new PasswordPolicyConfigExample();
+        ex.setDistinct(true);
+        PasswordPolicyConfigExample.Criteria c = ex.createCriteria();
+        c.andNameEqualTo("default");
+        List<PasswordPolicyConfig> coll = configMapper.selectByExample(ex);
+        if (coll == null || coll.isEmpty()) {
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONFIG_DEFAULT_NOT_EXIST);
+        }
+
+        PasswordPolicyConfigDto configDto = buildPasswordPolicyConfigDto(coll.get(0));
+
+        return configDto;
+    }
+
+    /**
+     * 通过PasswordPolicyConfig构建PasswordPolicyConfigDto
+     * @param config
+     * @return
+     */
+    private PasswordPolicyConfigDto buildPasswordPolicyConfigDto(PasswordPolicyConfig config) {
+        PasswordPolicyConfigDto configDto = PasswordPolicyConfigDto.build(config);
+
+        Integer constraintId = config.getConstraintId();
+        if (constraintId != null && constraintId != 0) {
+            PasswordPolicyConstraint constraint = constraintMapper.selectByPrimaryKey(constraintId);
+            if (constraint == null) {
+                throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONSTRAINT_NOT_EXIST, constraintId);
+            }
+            PasswordPolicyConstraintDto dto = PasswordPolicyConstraintDto.build(constraint);
+            configDto.setConstraint(dto);
+        }
+
+        Integer expirationId = config.getExpirationId();
+        if (expirationId != null && expirationId != 0) {
+            PasswordPolicyExpiration expiration = expirationMapper.selectByPrimaryKey(expirationId);
+            if (expiration == null) {
+                throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_EXPIRATION_NOT_EXIST, expirationId);
+            }
+            PasswordPolicyExpirationDto dto = PasswordPolicyExpirationDto.build(expiration);
+            configDto.setExpiration(dto);
+        }
+
+        Integer retryId = config.getRetryId();
+        if (retryId != null && retryId != 0) {
+            PasswordPolicyRetry retry = retryMapper.selectByPrimaryKey(retryId);
+            if (retry == null) {
+                throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_RETRY_NOT_EXIST, retryId);
+            }
+            PasswordPolicyRetryDto dto = PasswordPolicyRetryDto.build(retry);
+            configDto.setRetry(dto);
+        }
+
+        return configDto;
+    }
 }

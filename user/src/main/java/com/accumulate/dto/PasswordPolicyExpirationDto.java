@@ -37,6 +37,12 @@ public class PasswordPolicyExpirationDto {
         return e;
     }
 
+    public static PasswordPolicyExpirationDto build(PasswordPolicyExpiration expiration) {
+        PasswordPolicyExpirationDto dto = new PasswordPolicyExpirationDto();
+        BeanUtils.copyProperties(expiration, dto);
+        return dto;
+    }
+
     public Integer getId() {
         return id;
     }
