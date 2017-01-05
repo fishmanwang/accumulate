@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 public class EnumUtils {
 
 	/**
+	 * 校验字符串是否属于某个枚举类型
 	 * @param enumClass
 	 * @param enumValue
 	 * @return

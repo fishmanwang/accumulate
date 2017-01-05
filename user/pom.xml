@@ -40,6 +40,7 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <configuration>
                     <configurationFile>env/${env}/generator.xml</configurationFile>
+                    <!--<configurationFile>env/${env}/generator-without-base.xml</configurationFile>-->
                 </configuration>
             </plugin>
         </plugins>

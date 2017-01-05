@@ -20,7 +20,6 @@
         </javaTypeResolver>
         <javaModelGenerator targetPackage="com.accumulate.entity"
                             targetProject="E:/own/github/accumulate/user/src/main/java" >
-            <property name="rootClass" value="com.accumulate.entity.BaseEntity"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <sqlMapGenerator targetPackage="mapper"
@@ -28,8 +27,23 @@
         <javaClientGenerator targetPackage="com.accumulate.mapper"
                              targetProject="E:/own/github/accumulate/user/src/main/java" type="XMLMAPPER" />
 
-        <table schema="accumulate" tableName="acc_user" domainObjectName="User"/>
-        <table schema="accumulate" tableName="acc_password_policy_config" domainObjectName="PasswordPolicyConfig"/>
+        <table schema="accumulate" tableName="acc_password_policy_constraint" domainObjectName="PasswordPolicyConstraint">
+            <columnOverride column="min" javaType="java.lang.Integer"/>
+            <columnOverride column="max" javaType="java.lang.Integer"/>
+            <columnOverride column="max_repeat_character" javaType="java.lang.Integer"/>
+            <columnOverride column="min_non_alphanumeric" javaType="java.lang.Integer"/>
+            <columnOverride column="min_digits" javaType="java.lang.Integer"/>
+            <columnOverride column="min_lowercase" javaType="java.lang.Integer"/>
+            <columnOverride column="min_uppercase" javaType="java.lang.Integer"/>
+        </table>
+        <table schema="accumulate" tableName="acc_password_policy_expiration" domainObjectName="PasswordPolicyExpiration">
+            <columnOverride column="expired_day" javaType="java.lang.Integer"/>
+            <columnOverride column="waring_before_day" javaType="java.lang.Integer"/>
+            <columnOverride column="waring_action" javaType="java.lang.Integer"/>
+        </table>
+        <table schema="accumulate" tableName="acc_password_policy_retry" domainObjectName="PasswordPolicyRetry">
+            <columnOverride column="num" javaType="java.lang.Integer"/>
+        </table>
 
     </context>
 </generatorConfiguration>

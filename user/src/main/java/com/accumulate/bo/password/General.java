@@ -21,19 +21,16 @@ public class General {
     private boolean enable = true;
     private boolean banned = false;
     private String bannedUrl;
-    // 新用户是否强制修改密码
-    private boolean firstForce = true;
 
     private General() {
     }
 
-    public General(String name, String description, boolean enable, boolean banned, String bannedUrl, boolean firstForce) {
+    public General(String name, String description, boolean enable, boolean banned, String bannedUrl) {
         this.name = name;
         this.description = description;
         this.enable = enable;
         this.banned = banned;
         this.bannedUrl = bannedUrl;
-        this.firstForce = firstForce;
     }
 
     public String getName() {
@@ -64,7 +61,7 @@ public class General {
             "admin password p@ssword passwd iloveyou 5201314";
 
     public static General buildDefault() {
-        General general = new General("default", "默认密码策略", true, true, WEAK_PASSWORD_25, true);
+        General general = new General("default", "默认密码策略", true, true, WEAK_PASSWORD_25);
         return general;
     }
 
@@ -74,10 +71,6 @@ public class General {
             return bannedConstraintCheck.check(password);
         }
         return PolicyTip.pass();
-    }
-
-    public boolean isFirstForce() {
-        return firstForce;
     }
 
 }

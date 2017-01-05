@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class Retry {
 
     @NotNull
-    private boolean open = true;
+    private boolean enabled = true;
 
     @Min(value = 1, message = "重试次数最小为{value}")
     @Max(value = 10, message = "重试次数最大为{value}")
@@ -29,14 +29,14 @@ public class Retry {
     private Retry() {
     }
 
-    public Retry(boolean open, int num, long lockTime) {
-        this.open = open;
+    public Retry(boolean enabled, int num, long lockTime) {
+        this.enabled = enabled;
         this.num = num;
         this.lockTime = lockTime;
     }
 
     public boolean isOpen() {
-        return open;
+        return enabled;
     }
 
     public int getNum() {
