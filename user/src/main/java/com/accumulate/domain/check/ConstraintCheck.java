@@ -1,4 +1,6 @@
-package com.accumulate.bo.password;
+package com.accumulate.domain.check;
+
+import com.accumulate.domain.PolicyTip;
 
 /**
  * Created by tjwang on 2017/1/4.

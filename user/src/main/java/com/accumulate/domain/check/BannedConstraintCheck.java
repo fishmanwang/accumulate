@@ -1,8 +1,7 @@
-package com.accumulate.bo.password.check;
+package com.accumulate.domain.check;
 
 
-import com.accumulate.bo.password.ConstraintCheck;
-import com.accumulate.bo.password.PolicyTip;
+import com.accumulate.domain.PolicyTip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

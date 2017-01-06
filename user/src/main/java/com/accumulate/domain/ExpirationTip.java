@@ -1,4 +1,4 @@
-package com.accumulate.bo.password;
+package com.accumulate.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

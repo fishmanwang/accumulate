@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int add(User user) {

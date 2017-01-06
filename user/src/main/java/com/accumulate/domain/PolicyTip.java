@@ -1,4 +1,4 @@
-package com.accumulate.bo.password;
+package com.accumulate.domain;
 
 import java.util.ArrayList;
 import java.util.List;

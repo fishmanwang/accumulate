@@ -1,55 +1,20 @@
-package com.accumulate.bo.password;
+package com.accumulate.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 /**
- * 重试配置
- * Created by tjwang on 2017/1/4.
+ * Created by tjwang on 2017/1/6.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Retry {
+public class PasswordPolicyRetryDomain {
 
-    @NotNull
-    private boolean enabled = true;
+    private Integer id;
 
-    @Min(value = 1, message = "重试次数最小为{value}")
-    @Max(value = 10, message = "重试次数最大为{value}")
-    private int num = 3;
+    private Boolean enable;
 
-    @Min(value = 1, message = "锁定时间最小为{value}")
-    @Max(value = 24 * 60, message = "锁定时间最大为{value}")
-    private long lockTime = 2;
+    private Integer num;
 
-    private Retry() {
-    }
-
-    public Retry(boolean enabled, int num, long lockTime) {
-        this.enabled = enabled;
-        this.num = num;
-        this.lockTime = lockTime;
-    }
-
-    public boolean isOpen() {
-        return enabled;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public long getLockTime() {
-        return lockTime;
-    }
-
-    public static Retry buildDefault() {
-        return new Retry(true, 3, 2);
-    }
+    private Integer lockTime;
 
     /**
      * 判断账户是否锁定
@@ -58,7 +23,7 @@ public class Retry {
      * @return
      */
     public boolean isLock(LastFail lastFail) {
-        if (!this.isOpen()) {
+        if (!getEnable()) {
             return false;
         }
         if (lastFail == null || lastFail.getLastUpdate() == null) {
@@ -102,4 +67,36 @@ public class Retry {
         return this.getLockTime() * 60 - v.getSeconds();
     }
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public Integer getLockTime() {
+        return lockTime;
+    }
+
+    public void setLockTime(Integer lockTime) {
+        this.lockTime = lockTime;
+    }
 }

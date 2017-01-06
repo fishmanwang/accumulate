@@ -1,4 +1,4 @@
-package com.accumulate.bo.password;
+package com.accumulate.domain;
 
 import org.joda.time.DateTime;
 
