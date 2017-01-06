@@ -60,12 +60,15 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
             Integer id = constraintDto.getId();
             if (id == null) {
                 logger.debug("insert constraint");
-                id = constraintMapper.insert(constraint);
+                constraintMapper.insert(constraint);
             } else {
                 logger.debug("update constraint");
-                constraintMapper.updateByPrimaryKey(constraint);
+                int count = constraintMapper.updateByPrimaryKey(constraint);
+                if (count == 0) {
+                    throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONSTRAINT_NOT_EXIST, id);
+                }
             }
-            passwordPolicy.setConstraintId(id);
+            passwordPolicy.setConstraintId(constraint.getId());
         }
 
         PasswordPolicyExpirationDto expirationDto = dto.getExpiration();
@@ -74,38 +77,43 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
             Integer id = expirationDto.getId();
             if (id == null) {
                 logger.debug("insert expiration");
-                id = expirationMapper.insert(expiration);
+                expirationMapper.insert(expiration);
             } else {
                 logger.debug("update expiration");
-                expirationMapper.updateByPrimaryKey(expiration);
+                int count = expirationMapper.updateByPrimaryKey(expiration);
+                if (count == 0) {
+                    throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_EXPIRATION_NOT_EXIST, id);
+                }
             }
-            passwordPolicy.setExpirationId(id);
+            passwordPolicy.setExpirationId(expiration.getId());
         }
 
         PasswordPolicyRetryDto retryDto = dto.getRetry();
         if (retryDto != null) {
             PasswordPolicyRetry retry = retryDto.transfer();
-            Integer id = retry.getId();
+            Integer id = retryDto.getId();
             if (id == null) {
                 logger.debug("insert retry");
-                id = retryMapper.insert(retry);
+                retryMapper.insert(retry);
             } else {
                 logger.debug("update retry");
-                retryMapper.updateByPrimaryKey(retry);
+                int count = retryMapper.updateByPrimaryKey(retry);
+                if (count == 0) {
+                    throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_RETRY_NOT_EXIST, id);
+                }
             }
-            passwordPolicy.setRetryId(id);
+            passwordPolicy.setRetryId(retry.getId());
         }
 
-        Integer id = dto.getId();
-        if (id == null) {
+        if (dto.getId() == null) {
             logger.debug("insert password policy");
-            id = configMapper.insert(passwordPolicy);
+            configMapper.insert(passwordPolicy);
         } else {
             logger.debug("update password policy");
             configMapper.updateByPrimaryKey(passwordPolicy);
         }
 
-        return id;
+        return passwordPolicy.getId();
     }
 
     public PasswordPolicyConfigDto findById(Integer id) {
@@ -146,34 +154,63 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
 
         Integer constraintId = config.getConstraintId();
         if (constraintId != null && constraintId != 0) {
-            PasswordPolicyConstraint constraint = constraintMapper.selectByPrimaryKey(constraintId);
-            if (constraint == null) {
-                throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONSTRAINT_NOT_EXIST, constraintId);
-            }
+            PasswordPolicyConstraint constraint = findConstraint(constraintId);
             PasswordPolicyConstraintDto dto = PasswordPolicyConstraintDto.build(constraint);
             configDto.setConstraint(dto);
         }
 
         Integer expirationId = config.getExpirationId();
         if (expirationId != null && expirationId != 0) {
-            PasswordPolicyExpiration expiration = expirationMapper.selectByPrimaryKey(expirationId);
-            if (expiration == null) {
-                throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_EXPIRATION_NOT_EXIST, expirationId);
-            }
+            PasswordPolicyExpiration expiration = findExpiration(expirationId);
             PasswordPolicyExpirationDto dto = PasswordPolicyExpirationDto.build(expiration);
             configDto.setExpiration(dto);
         }
 
         Integer retryId = config.getRetryId();
         if (retryId != null && retryId != 0) {
-            PasswordPolicyRetry retry = retryMapper.selectByPrimaryKey(retryId);
-            if (retry == null) {
-                throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_RETRY_NOT_EXIST, retryId);
-            }
+            PasswordPolicyRetry retry = findRetry(retryId);
             PasswordPolicyRetryDto dto = PasswordPolicyRetryDto.build(retry);
             configDto.setRetry(dto);
         }
 
         return configDto;
     }
+
+    private PasswordPolicyConstraint findConstraint(Integer constraintId) {
+        PasswordPolicyConstraint constraint = constraintMapper.selectByPrimaryKey(constraintId);
+        if (constraint == null) {
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONSTRAINT_NOT_EXIST, constraintId);
+        }
+        return constraint;
+    }
+
+    private PasswordPolicyExpiration findExpiration(Integer expirationId) {
+        PasswordPolicyExpiration expiration = expirationMapper.selectByPrimaryKey(expirationId);
+        if (expiration == null) {
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_EXPIRATION_NOT_EXIST, expirationId);
+        }
+        return expiration;
+    }
+
+    private PasswordPolicyRetry findRetry(Integer retryId) {
+        PasswordPolicyRetry retry = retryMapper.selectByPrimaryKey(retryId);
+        if (retry == null) {
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_RETRY_NOT_EXIST, retryId);
+        }
+        return retry;
+    }
+
+    @Transactional
+    @Override
+    public void delete(int id) {
+        PasswordPolicyConfig config = configMapper.selectByPrimaryKey(id);
+        if (config == null) {
+            return ;
+        }
+        // constraintId,expirationId,retryId默认为0，所以不需要判空
+        constraintMapper.deleteByPrimaryKey(config.getConstraintId());
+        expirationMapper.deleteByPrimaryKey(config.getExpirationId());
+        retryMapper.deleteByPrimaryKey(config.getRetryId());
+    }
+
 }

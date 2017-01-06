@@ -40,6 +40,9 @@ public class PasswordPolicyConfigDto {
     public PasswordPolicyConfig transfer() {
         PasswordPolicyConfig c = new PasswordPolicyConfig();
         BeanUtils.copyProperties(this, c);
+        c.setConstraintId(0);
+        c.setExpirationId(0);
+        c.setRetryId(0);
         return c;
     }
 

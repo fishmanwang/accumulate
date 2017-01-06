@@ -6,6 +6,7 @@ import com.accumulate.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -21,9 +22,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void add(User user) {
+    public int add(User user) {
         logger.debug("Execute UserService.add");
-        userMapper.insert(user);
+        return userMapper.insert(user);
     }
 }

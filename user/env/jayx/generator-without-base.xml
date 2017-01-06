@@ -28,6 +28,7 @@
                              targetProject="E:/own/github/accumulate/user/src/main/java" type="XMLMAPPER" />
 
         <table schema="accumulate" tableName="acc_password_policy_constraint" domainObjectName="PasswordPolicyConstraint">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="min" javaType="java.lang.Integer"/>
             <columnOverride column="max" javaType="java.lang.Integer"/>
             <columnOverride column="max_repeat_character" javaType="java.lang.Integer"/>
@@ -37,11 +38,13 @@
             <columnOverride column="min_uppercase" javaType="java.lang.Integer"/>
         </table>
         <table schema="accumulate" tableName="acc_password_policy_expiration" domainObjectName="PasswordPolicyExpiration">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="expired_day" javaType="java.lang.Integer"/>
             <columnOverride column="waring_before_day" javaType="java.lang.Integer"/>
             <columnOverride column="waring_action" javaType="java.lang.Integer"/>
         </table>
         <table schema="accumulate" tableName="acc_password_policy_retry" domainObjectName="PasswordPolicyRetry">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="num" javaType="java.lang.Integer"/>
         </table>
 

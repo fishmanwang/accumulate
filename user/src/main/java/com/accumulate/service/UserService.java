@@ -7,6 +7,6 @@ import com.accumulate.entity.User;
  */
 public interface UserService {
 
-    void add(User user);
+    int add(User user);
 
 }

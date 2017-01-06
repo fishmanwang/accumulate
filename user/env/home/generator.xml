@@ -25,8 +25,12 @@
         <javaClientGenerator targetPackage="com.accumulate.mapper"
                              targetProject="D:/projects/accumulate/user/src/main/java" type="XMLMAPPER" />
 
-        <table schema="accumulate" tableName="acc_user" domainObjectName="User"/>
-        <table schema="accumulate" tableName="acc_password_policy_config" domainObjectName="PasswordPolicyConfig"/>
+        <table schema="accumulate" tableName="acc_user" domainObjectName="User">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="accumulate" tableName="acc_password_policy_config" domainObjectName="PasswordPolicyConfig">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
     </context>
 </generatorConfiguration>

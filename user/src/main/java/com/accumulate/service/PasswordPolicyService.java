@@ -26,4 +26,10 @@ public interface PasswordPolicyService {
      */
     PasswordPolicyConfigDto findDefault();
 
+    /**
+     * 从数据库删除
+     * @param id
+     */
+    void delete(int id);
+
 }
