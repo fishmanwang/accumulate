@@ -1,10 +1,7 @@
 package com.accumulate.service;
 
 import com.accumulate.base.BaseTest;
-import com.accumulate.dto.PasswordPolicyConfigDto;
-import com.accumulate.dto.PasswordPolicyConstraintDto;
-import com.accumulate.dto.PasswordPolicyExpirationDto;
-import com.accumulate.dto.PasswordPolicyRetryDto;
+import com.accumulate.dto.*;
 import com.accumulate.entity.PasswordPolicyConfig;
 import com.accumulate.exception.ApplicationException;
 import com.accumulate.helpers.PasswordPolicyHelper;
@@ -13,6 +10,7 @@ import com.accumulate.utils.ObjectUtils;
 import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +56,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
     }
 
     private int prepareData() {
-        PasswordPolicyConfigDto dto = PasswordPolicyHelper.buildDefaultConfigDto();
+        PasswordPolicyConfigCreateDto dto = buildCreateDto();
         return passwordPolicyService.save(dto);
     }
 
@@ -70,7 +68,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
 
     @Test(expected = ApplicationException.class)
     public void testSaveNull() {
-        PasswordPolicyConfigDto dto = null;
+        PasswordPolicyConfigCreateDto dto = null;
         int id = passwordPolicyService.save(dto);
         assertNotNull(id);
     }
@@ -98,7 +96,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
      */
     @Test
     public void testFindByIdWithoutConstraint() {
-        PasswordPolicyConfigDto dto = PasswordPolicyHelper.buildDefaultConfigDto();
+        PasswordPolicyConfigCreateDto dto = buildCreateDto();
         dto.setName("no-constraint");
         dto.setConstraint(null);
         int id = passwordPolicyService.save(dto);
@@ -112,7 +110,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
      */
     @Test
     public void testFindByIdWithoutExpiration() {
-        PasswordPolicyConfigDto dto = PasswordPolicyHelper.buildDefaultConfigDto();
+        PasswordPolicyConfigCreateDto dto = buildCreateDto();
         dto.setName("no-expiration");
         dto.setExpiration(null);
         int id = passwordPolicyService.save(dto);
@@ -126,7 +124,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
      */
     @Test
     public void testFindByIdWithoutRetry() {
-        PasswordPolicyConfigDto dto = PasswordPolicyHelper.buildDefaultConfigDto();
+        PasswordPolicyConfigCreateDto dto = buildCreateDto();
         dto.setName("no-retry");
         dto.setRetry(null);
         int id = passwordPolicyService.save(dto);
@@ -187,17 +185,26 @@ public class PasswordPolicyServiceTest extends BaseTest {
     public void testFindDefault() {
         prepareData();
 
-        PasswordPolicyConfigDto config = passwordPolicyService.findDefault();
+        PasswordPolicyConfigDto config = passwordPolicyService.findEnabled();
         logger.info(ObjectUtils.toString(config));
         assertNotNull(config);
     }
 
     /**
-     * 查询默认密码策略，该策略在数据库中不存在
+     * 查询激活密码策略，该策略在数据库中不存在
      */
     @Test(expected = ApplicationException.class)
     public void testFindNotExistsDefault() {
-        passwordPolicyService.findDefault();
+        passwordPolicyService.findEnabled();
+    }
+
+    /**
+     * 查询激活密码策略，激活策略大于一条
+     */
+    @Test(expected = ApplicationException.class)
+    public void testDuplicateDefault() {
+        PasswordPolicyConfigDto dto = PasswordPolicyHelper.buildDefaultConfigDto();
+        passwordPolicyService.findEnabled();
     }
 
     /**
@@ -400,7 +407,34 @@ public class PasswordPolicyServiceTest extends BaseTest {
         passwordPolicyService.save(config);
     }
 
+    private PasswordPolicyConfigCreateDto buildCreateDto() {
+        String WEAK_PASSWORD_25 = "000000 111111 11111111 112233 123123 123321 123456 " +
+                "12345678 654321 666666 888888 abcdef abcabc abc123 a1b2c3 aaa111 123qwe qwerty qweasd " +
+                "admin password p@ssword passwd iloveyou 5201314";
 
+        Date now = new Date();
+
+        PasswordPolicyConfigCreateDto createDto = new PasswordPolicyConfigCreateDto();
+        createDto.setName("default");
+        createDto.setDescription("默认密码策略");
+        createDto.setBanned(true);
+        createDto.setBannedUrl(WEAK_PASSWORD_25);
+        createDto.setCreateBy(0);
+        createDto.setCreateTime(now);
+        createDto.setUpdateBy(0);
+        createDto.setUpdateTime(now);
+
+        PasswordPolicyConstraintDto constraint = PasswordPolicyHelper.buildDefaultConstraint();
+        createDto.setConstraint(constraint);
+
+        PasswordPolicyExpirationDto expiration = PasswordPolicyHelper.buildDefaultExpiration();
+        createDto.setExpiration(expiration);
+
+        PasswordPolicyRetryDto retry = PasswordPolicyHelper.buildDefaultRetry();
+        createDto.setRetry(retry);
+
+        return createDto;
+    }
 
 
 }

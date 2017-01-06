@@ -21,13 +21,13 @@ public class PasswordPolicyHelper {
             "admin password p@ssword passwd iloveyou 5201314";
 
     /**
-     * 生成
+     * 生成。默认enable为false，只能通过其它方法激活。
      */
     public static PasswordPolicyConfigDto buildDefaultConfigDto() {
         Date now = new Date();
 
         PasswordPolicyConfigDto config = new PasswordPolicyConfigDto();
-        config.setEnable(true);
+        config.setEnable(false);
         config.setName("default");
         config.setDescription("默认密码策略");
         config.setBanned(true);
@@ -49,7 +49,7 @@ public class PasswordPolicyHelper {
         return config;
     }
 
-    private static PasswordPolicyConstraintDto buildDefaultConstraint() {
+    public static PasswordPolicyConstraintDto buildDefaultConstraint() {
         PasswordPolicyConstraintDto constraint = new PasswordPolicyConstraintDto();
         constraint.setEnable(true);
         constraint.setMin(6);
@@ -63,7 +63,7 @@ public class PasswordPolicyHelper {
         return constraint;
     }
 
-    private static PasswordPolicyExpirationDto buildDefaultExpiration() {
+    public static PasswordPolicyExpirationDto buildDefaultExpiration() {
         PasswordPolicyExpirationDto expiration = new PasswordPolicyExpirationDto();
         expiration.setEnable(true);
         expiration.setExpiredDay(30);
@@ -77,7 +77,7 @@ public class PasswordPolicyHelper {
         return expiration;
     }
 
-    private static PasswordPolicyRetryDto buildDefaultRetry() {
+    public static PasswordPolicyRetryDto buildDefaultRetry() {
         PasswordPolicyRetryDto retry = new PasswordPolicyRetryDto();
         retry.setEnable(true);
         retry.setNum(5);

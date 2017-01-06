@@ -1,9 +1,6 @@
 package com.accumulate.service.impl;
 
-import com.accumulate.dto.PasswordPolicyConfigDto;
-import com.accumulate.dto.PasswordPolicyConstraintDto;
-import com.accumulate.dto.PasswordPolicyExpirationDto;
-import com.accumulate.dto.PasswordPolicyRetryDto;
+import com.accumulate.dto.*;
 import com.accumulate.entity.*;
 import com.accumulate.exception.ApplicationException;
 import com.accumulate.exception.UserErrorCode;
@@ -45,7 +42,7 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int save(PasswordPolicyConfigDto dto) {
+    public int save(PasswordPolicyConfigCreateDto dto) {
         logger.debug(ObjectUtils.toString(dto));
 
         if (dto == null) {
@@ -129,14 +126,17 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
     }
 
     @Override
-    public PasswordPolicyConfigDto findDefault() {
+    public PasswordPolicyConfigDto findEnabled() {
         PasswordPolicyConfigExample ex = new PasswordPolicyConfigExample();
-        ex.setDistinct(true);
         PasswordPolicyConfigExample.Criteria c = ex.createCriteria();
-        c.andNameEqualTo("default");
+        c.andEnableEqualTo(true);
         List<PasswordPolicyConfig> coll = configMapper.selectByExample(ex);
         if (coll == null || coll.isEmpty()) {
-            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONFIG_DEFAULT_NOT_EXIST);
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONFIG_ENABLED_NOT_EXIST);
+        }
+
+        if (coll.size() > 1) {
+            throw new ApplicationException(UserErrorCode.PASSWORD_POLICY_CONFIG_ENABLED_MORE_THAN_ONE);
         }
 
         PasswordPolicyConfigDto configDto = buildPasswordPolicyConfigDto(coll.get(0));

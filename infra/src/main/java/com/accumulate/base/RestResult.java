@@ -4,7 +4,7 @@ package com.accumulate.base;
  * 所有rest接口统一返回格式
  * Created by tjwang on 2016/8/19.
  */
-public class RestResult<T> extends BaseDTO {
+public class RestResult<T> {
 
     private ResultCode code;
 

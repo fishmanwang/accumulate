@@ -2,6 +2,7 @@ package com.accumulate.service.impl;
 
 import com.accumulate.entity.User;
 import com.accumulate.mapper.UserMapper;
+import com.accumulate.service.PasswordPolicyService;
 import com.accumulate.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 /**
+ * 用户服务实现
  * Created by tjwang on 2017/1/3.
  */
 @Service
@@ -21,10 +23,16 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private PasswordPolicyService passwordPolicyService;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int add(User user) {
+    public int create(User user) {
+
+
         logger.debug("Execute UserService.add");
         return userMapper.insert(user);
     }
+
 }

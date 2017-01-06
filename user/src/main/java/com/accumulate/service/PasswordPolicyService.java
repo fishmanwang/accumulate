@@ -1,5 +1,6 @@
 package com.accumulate.service;
 
+import com.accumulate.dto.PasswordPolicyConfigCreateDto;
 import com.accumulate.dto.PasswordPolicyConfigDto;
 
 /**
@@ -11,7 +12,7 @@ public interface PasswordPolicyService {
      * @param dto
      * @return
      */
-    int save(PasswordPolicyConfigDto dto);
+    int save(PasswordPolicyConfigCreateDto dto);
 
     /**
      * 查询密码配置
@@ -21,10 +22,10 @@ public interface PasswordPolicyService {
     PasswordPolicyConfigDto findById(Integer id);
 
     /**
-     * 查找默认密码策略
+     * 查找激活的密码策略
      * @return
      */
-    PasswordPolicyConfigDto findDefault();
+    PasswordPolicyConfigDto findEnabled();
 
     /**
      * 从数据库删除

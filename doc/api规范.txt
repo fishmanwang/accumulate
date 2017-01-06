@@ -1,6 +1,6 @@
 service层
 
-add : 新增数据
+create : 新增数据
 save : 新增或保存数据
 update : 更新数据
 delete : 删除数据
