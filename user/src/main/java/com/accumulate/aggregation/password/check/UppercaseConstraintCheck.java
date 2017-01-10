@@ -1,7 +1,7 @@
-package com.accumulate.domain.check;
+package com.accumulate.aggregation.password.check;
 
 
-import com.accumulate.domain.PolicyTip;
+import com.accumulate.vo.password.PolicyTip;
 
 /**
  * Created by 军 on 2015/9/17.

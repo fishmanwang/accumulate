@@ -1,11 +1,10 @@
-package com.accumulate.domain;
+package com.accumulate.aggregation.password;
 
 /**
- * Created by tjwang on 2017/1/6.
+ * 密码过期设置
+ * Created by tjwang on 2017/1/10.
  */
-public class PasswordPolicyExpirationDomain {
-
-    private Integer id;
+public class Expiration {
 
     private Boolean enable;
 
@@ -27,14 +26,6 @@ public class PasswordPolicyExpirationDomain {
     private String smsExpiringMessage;
 
     private String smsExpiredMessage;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Boolean getEnable() {
         return enable;
@@ -107,4 +98,5 @@ public class PasswordPolicyExpirationDomain {
     public void setSmsExpiredMessage(String smsExpiredMessage) {
         this.smsExpiredMessage = smsExpiredMessage;
     }
+
 }

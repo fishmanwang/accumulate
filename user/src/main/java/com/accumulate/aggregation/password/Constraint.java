@@ -1,14 +1,13 @@
-package com.accumulate.domain;
+package com.accumulate.aggregation.password;
 
-import com.accumulate.domain.check.ConstraintCheck;
-import com.accumulate.domain.check.*;
+import com.accumulate.aggregation.password.check.*;
+import com.accumulate.vo.password.PolicyTip;
 
 /**
- * Created by tjwang on 2017/1/6.
+ * 密码约束配置
+ * Created by tjwang on 2017/1/10.
  */
-public class PasswordPolicyConstraintDomain {
-
-    private Integer id;
+public class Constraint {
 
     private Boolean enable;
 
@@ -98,14 +97,6 @@ public class PasswordPolicyConstraintDomain {
         return sb.toString();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Boolean getEnable() {
         return enable;
     }
@@ -177,4 +168,5 @@ public class PasswordPolicyConstraintDomain {
     public void setNotBlank(Boolean notBlank) {
         this.notBlank = notBlank;
     }
+
 }

@@ -1,6 +1,6 @@
-package com.accumulate.domain.check;
+package com.accumulate.aggregation.password.check;
 
-import com.accumulate.domain.PolicyTip;
+import com.accumulate.vo.password.PolicyTip;
 
 /**
  * 空字符检查

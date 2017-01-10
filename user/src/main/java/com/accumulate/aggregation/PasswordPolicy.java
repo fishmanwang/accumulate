@@ -1,21 +1,24 @@
-package com.accumulate.domain;
+package com.accumulate.aggregation;
 
-import com.accumulate.domain.check.BannedConstraintCheck;
+import com.accumulate.aggregation.password.Constraint;
+import com.accumulate.aggregation.password.Expiration;
+import com.accumulate.aggregation.password.check.BannedConstraintCheck;
+import com.accumulate.vo.password.ExpirationTip;
+import com.accumulate.vo.password.PolicyTip;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
+import java.util.Set;
 
 /**
- * Created by tjwang on 2017/1/6.
+ * 密码策略聚合类
+ * Created by tjwang on 2017/1/10.
  */
-public class PasswordPolicyConfigDomain {
+public class PasswordPolicy {
 
-    private Logger logger = LoggerFactory.getLogger(PasswordPolicyConfigDomain.class);
-
-    private Integer id;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private String name;
 
@@ -25,21 +28,11 @@ public class PasswordPolicyConfigDomain {
 
     private Boolean banned;
 
-    private String bannedUrl;
+    private Set<String> bannedSet;
 
-    private PasswordPolicyConstraintDomain constraint;
+    private Constraint constraint;
 
-    private PasswordPolicyExpirationDomain expiration;
-
-    private PasswordPolicyRetryDomain retry;
-
-    private Date createTime;
-
-    private Integer createBy;
-
-    private Date updateTime;
-
-    private Integer updateBy;
+    private Expiration expiration;
 
     /**
      * 检测密码是否满足密码策略
@@ -80,7 +73,7 @@ public class PasswordPolicyConfigDomain {
      */
     public PolicyTip checkBanned(String password) {
         if (getBanned()) {
-            BannedConstraintCheck bannedConstraintCheck = new BannedConstraintCheck(bannedUrl);
+            BannedConstraintCheck bannedConstraintCheck = new BannedConstraintCheck(bannedSet);
             return bannedConstraintCheck.check(password);
         }
         return PolicyTip.pass();
@@ -92,7 +85,7 @@ public class PasswordPolicyConfigDomain {
      * @param lastDate
      * @return
      */
-    public boolean isExpiration(DateTime lastDate) {
+    public boolean isExpired(DateTime lastDate) {
         if (null == lastDate) {
             return false;
         }
@@ -137,7 +130,7 @@ public class PasswordPolicyConfigDomain {
      * @param lastDate
      * @return
      */
-    public int notificationDay(DateTime lastDate) {
+    public int getExpiringDay(DateTime lastDate) {
         if (null == lastDate) {
             return 0;
         }
@@ -155,7 +148,7 @@ public class PasswordPolicyConfigDomain {
      * @param lastDate
      * @return
      */
-    public ExpirationTip expirationTip(DateTime lastDate) {
+    public ExpirationTip getExpirationTip(DateTime lastDate) {
         if (null == lastDate) {
             return new ExpirationTip(30, 0, ExpirationTip.Status.normal);
         }
@@ -173,14 +166,6 @@ public class PasswordPolicyConfigDomain {
             return new ExpirationTip(Math.abs(d), lastDay, ExpirationTip.Status.overdue);
         }
         return new ExpirationTip(d, lastDay, ExpirationTip.Status.waring);
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -215,67 +200,28 @@ public class PasswordPolicyConfigDomain {
         this.banned = banned;
     }
 
-    public String getBannedUrl() {
-        return bannedUrl;
+    public Set<String> getBannedSet() {
+        return bannedSet;
     }
 
-    public void setBannedUrl(String bannedUrl) {
-        this.bannedUrl = bannedUrl;
+    public void setBannedSet(Set<String> bannedSet) {
+        this.bannedSet = bannedSet;
     }
 
-    public PasswordPolicyConstraintDomain getConstraint() {
+    public Constraint getConstraint() {
         return constraint;
     }
 
-    public void setConstraint(PasswordPolicyConstraintDomain constraint) {
+    public void setConstraint(Constraint constraint) {
         this.constraint = constraint;
     }
 
-    public PasswordPolicyExpirationDomain getExpiration() {
+    public Expiration getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(PasswordPolicyExpirationDomain expiration) {
+    public void setExpiration(Expiration expiration) {
         this.expiration = expiration;
     }
 
-    public PasswordPolicyRetryDomain getRetry() {
-        return retry;
-    }
-
-    public void setRetry(PasswordPolicyRetryDomain retry) {
-        this.retry = retry;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Integer createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Integer updateBy) {
-        this.updateBy = updateBy;
-    }
 }
