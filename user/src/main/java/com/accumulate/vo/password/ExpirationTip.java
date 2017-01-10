@@ -47,9 +47,7 @@ public class ExpirationTip {
         // 警告
         waring("警告"),
         // 过期
-        overdue("过期"),
-        // 异常
-        fail("异常");
+        overdue("过期");
 
         private String name;
 

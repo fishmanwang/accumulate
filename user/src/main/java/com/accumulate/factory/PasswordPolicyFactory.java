@@ -28,9 +28,8 @@ public class PasswordPolicyFactory {
      */
     public static PasswordPolicy createDefaut() {
         PasswordPolicy pp = new PasswordPolicy();
-        Date now = new Date();
 
-        pp.setEnable(false);
+        pp.setEnable(true);
         pp.setName("default");
         pp.setDescription("默认密码策略");
         pp.setBanned(true);
@@ -55,7 +54,7 @@ public class PasswordPolicyFactory {
         constraint.setMinDigits(1);
         constraint.setMinLowercase(1);
         constraint.setMinUppercase(1);
-        constraint.setNotBlank(false);
+        constraint.setNoBlank(false);
         return constraint;
     }
 

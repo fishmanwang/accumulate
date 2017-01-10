@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class UserServiceTest extends BaseTest {
 
-    private static Logger logger = LoggerFactory.getLogger(PasswordPolicyServiceTest.class);
+    private static Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Resource
     private UserService userService;

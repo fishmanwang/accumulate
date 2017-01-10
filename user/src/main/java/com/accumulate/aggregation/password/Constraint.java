@@ -11,21 +11,45 @@ public class Constraint {
 
     private Boolean enable;
 
+    /**
+     * 最小长度
+     */
     private Integer min;
 
+    /**
+     * 最大长度
+     */
     private Integer max;
 
+    /**
+     * 单个字符最大重复数
+     */
     private Integer maxRepeatCharacter;
 
+    /**
+     * 最少特殊字符个数
+     */
     private Integer minNonAlphanumeric;
 
+    /**
+     * 最少数字个数
+     */
     private Integer minDigits;
 
+    /**
+     * 最少小写字母个数
+     */
     private Integer minLowercase;
 
+    /**
+     * 最少大写字母次数
+     */
     private Integer minUppercase;
 
-    private Boolean notBlank;
+    /**
+     * 是否允许空格
+     */
+    private Boolean noBlank;
 
     public PolicyTip check(String password) {
         PolicyTip.Items items = new PolicyTip.Items();
@@ -48,7 +72,7 @@ public class Constraint {
         if (getMinUppercase() != 0) {
             items = items.add(new UppercaseConstraintCheck(getMinUppercase()).check(password));
         }
-        if (getNotBlank()) {
+        if (getNoBlank()) {
             items = items.add(new BlankConstraintCheck().check(password));
         }
         return items.stop();
@@ -161,12 +185,11 @@ public class Constraint {
         this.minUppercase = minUppercase;
     }
 
-    public Boolean getNotBlank() {
-        return notBlank;
+    public Boolean getNoBlank() {
+        return noBlank;
     }
 
-    public void setNotBlank(Boolean notBlank) {
-        this.notBlank = notBlank;
+    public void setNoBlank(Boolean noBlank) {
+        this.noBlank = noBlank;
     }
-
 }

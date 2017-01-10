@@ -31,24 +31,18 @@ public class BannedConstraintCheck implements ConstraintCheck {
         if (null == bannedSet || bannedSet.size() == 0) {
             return PolicyTip.pass();
         }
-        try {
-            for (String line : bannedSet) {
-                // 不区分大小写
-                if (line.toLowerCase().contains(password.toLowerCase())) {
-                    return new PolicyTip("密码已列入黑名单", false);
-                }
+        for (String line : bannedSet) {
+            // 不区分大小写
+            if (line.toLowerCase().contains(password.toLowerCase())) {
+                return new PolicyTip("密码已列入黑名单", false);
             }
+        }
 
-            for (String word : bannedSet) {
-                if (password.toLowerCase().contains(word.toLowerCase())) {
-                    return new PolicyTip(String.format("密码中【%s】已列入黑名单", word),
-                            false);
-                }
+        for (String word : bannedSet) {
+            if (password.toLowerCase().contains(word.toLowerCase())) {
+                return new PolicyTip(String.format("密码中【%s】已列入黑名单", word),
+                        false);
             }
-
-        } catch (Exception ex) {
-            logger.error("", ex);
-            logger.warn("黑名单资源 {} 不存在", bannedSet.toString());
         }
 
         return PolicyTip.pass();

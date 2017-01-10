@@ -89,7 +89,13 @@ public class PasswordPolicy {
         if (null == lastDate) {
             return false;
         }
+        if (!getEnable()) {
+            return false;
+        }
         if (null == getExpiration()) {
+            return false;
+        }
+        if (!getExpiration().getEnable()) {
             return false;
         }
         int d = Days.daysBetween(lastDate, DateTime.now()).getDays();
@@ -109,12 +115,15 @@ public class PasswordPolicy {
     public boolean needNotification(DateTime lastDate) {
         logger.debug("lastDate = {}", lastDate);
         if (null == lastDate) {
-            return true;
+            return false;
         }
         if (!getEnable()) {
             return false;
         }
         if (null == getExpiration()) {
+            return false;
+        }
+        if (!getExpiration().getEnable()) {
             return false;
         }
         // 当前时间与最后一次修改密码时间相差多少天
@@ -136,9 +145,10 @@ public class PasswordPolicy {
         }
         // 当前时间与最后一次修改密码时间相差多少天
         int d = Days.daysBetween(lastDate, DateTime.now()).getDays();
-        logger.debug("d1 -> {} day", d);
         d = this.getExpiration().getExpiredDay() - d;
-        logger.debug("d -> {} day", d);
+        if (d < 0) {
+            d = 0;
+        }
         return d;
     }
 
