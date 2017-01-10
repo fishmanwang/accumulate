@@ -1,6 +1,5 @@
 package com.accumulate.service;
 
-import com.accumulate.dto.PasswordPolicyConfigCreateDto;
 import com.accumulate.dto.PasswordPolicyConfigDto;
 
 /**
@@ -12,7 +11,7 @@ public interface PasswordPolicyService {
      * @param dto
      * @return
      */
-    int save(PasswordPolicyConfigCreateDto dto);
+    int save(PasswordPolicyConfigDto dto);
 
     /**
      * 查询密码配置

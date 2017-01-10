@@ -56,7 +56,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
     }
 
     private int prepareData() {
-        PasswordPolicyConfigCreateDto dto = buildCreateDto();
+        PasswordPolicyConfigDto dto = buildCreateDto();
         return passwordPolicyService.save(dto);
     }
 
@@ -68,7 +68,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
 
     @Test(expected = ApplicationException.class)
     public void testSaveNull() {
-        PasswordPolicyConfigCreateDto dto = null;
+        PasswordPolicyConfigDto dto = null;
         int id = passwordPolicyService.save(dto);
         assertNotNull(id);
     }
@@ -96,7 +96,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
      */
     @Test
     public void testFindByIdWithoutConstraint() {
-        PasswordPolicyConfigCreateDto dto = buildCreateDto();
+        PasswordPolicyConfigDto dto = buildCreateDto();
         dto.setName("no-constraint");
         dto.setConstraint(null);
         int id = passwordPolicyService.save(dto);
@@ -110,7 +110,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
      */
     @Test
     public void testFindByIdWithoutExpiration() {
-        PasswordPolicyConfigCreateDto dto = buildCreateDto();
+        PasswordPolicyConfigDto dto = buildCreateDto();
         dto.setName("no-expiration");
         dto.setExpiration(null);
         int id = passwordPolicyService.save(dto);
@@ -124,7 +124,7 @@ public class PasswordPolicyServiceTest extends BaseTest {
      */
     @Test
     public void testFindByIdWithoutRetry() {
-        PasswordPolicyConfigCreateDto dto = buildCreateDto();
+        PasswordPolicyConfigDto dto = buildCreateDto();
         dto.setName("no-retry");
         dto.setRetry(null);
         int id = passwordPolicyService.save(dto);
@@ -407,14 +407,14 @@ public class PasswordPolicyServiceTest extends BaseTest {
         passwordPolicyService.save(config);
     }
 
-    private PasswordPolicyConfigCreateDto buildCreateDto() {
+    private PasswordPolicyConfigDto buildCreateDto() {
         String WEAK_PASSWORD_25 = "000000 111111 11111111 112233 123123 123321 123456 " +
                 "12345678 654321 666666 888888 abcdef abcabc abc123 a1b2c3 aaa111 123qwe qwerty qweasd " +
                 "admin password p@ssword passwd iloveyou 5201314";
 
         Date now = new Date();
 
-        PasswordPolicyConfigCreateDto createDto = new PasswordPolicyConfigCreateDto();
+        PasswordPolicyConfigDto createDto = new PasswordPolicyConfigDto();
         createDto.setName("default");
         createDto.setDescription("默认密码策略");
         createDto.setBanned(true);

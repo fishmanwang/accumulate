@@ -24,26 +24,24 @@ public class UserServiceTest extends BaseTest {
         Date now = new Date();
 
         User user = new User();
-        user.setName("wang");
-        user.setAge((short) 30);
+        user.setUsername("wang");
         user.setPassword("123456");
         user.setCreateBy(0);
         user.setCreateTime(now);
         user.setUpdateBy(0);
         user.setUpdateTime(now);
-        userService.add(user);
+        userService.create(user);
         logger.debug("id : " + user.getId());
 
         user = new User();
-        user.setName("chen");
-        user.setAge((short) 20);
+        user.setUsername("chen");
         user.setPassword("111111");
         user.setPassword("123456");
         user.setCreateBy(0);
         user.setCreateTime(now);
         user.setUpdateBy(0);
         user.setUpdateTime(now);
-        userService.add(user);
+        userService.create(user);
         logger.debug("id : " + user.getId());
     }
 

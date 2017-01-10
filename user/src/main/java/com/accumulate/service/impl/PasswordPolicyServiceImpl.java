@@ -42,7 +42,7 @@ public class PasswordPolicyServiceImpl implements PasswordPolicyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int save(PasswordPolicyConfigCreateDto dto) {
+    public int save(PasswordPolicyConfigDto dto) {
         logger.debug(ObjectUtils.toString(dto));
 
         if (dto == null) {
