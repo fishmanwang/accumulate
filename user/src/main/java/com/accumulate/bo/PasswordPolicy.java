@@ -1,8 +1,8 @@
-package com.accumulate.aggregation;
+package com.accumulate.bo;
 
-import com.accumulate.aggregation.password.Constraint;
-import com.accumulate.aggregation.password.Expiration;
-import com.accumulate.aggregation.password.check.BannedConstraintCheck;
+import com.accumulate.bo.password.Constraint;
+import com.accumulate.bo.password.Expiration;
+import com.accumulate.bo.password.check.BannedConstraintCheck;
 import com.accumulate.vo.password.ExpirationTip;
 import com.accumulate.vo.password.PolicyTip;
 import org.joda.time.DateTime;

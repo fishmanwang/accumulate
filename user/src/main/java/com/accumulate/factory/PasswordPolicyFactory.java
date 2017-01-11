@@ -1,11 +1,10 @@
 package com.accumulate.factory;
 
-import com.accumulate.aggregation.PasswordPolicy;
-import com.accumulate.aggregation.password.Constraint;
-import com.accumulate.aggregation.password.Expiration;
+import com.accumulate.bo.PasswordPolicy;
+import com.accumulate.bo.password.Constraint;
+import com.accumulate.bo.password.Expiration;
 import com.google.common.collect.Sets;
 
-import java.util.Date;
 import java.util.Set;
 
 /**

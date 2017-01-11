@@ -1,4 +1,4 @@
-package com.accumulate.aggregation.password;
+package com.accumulate.bo.password;
 
 /**
  * 密码过期设置

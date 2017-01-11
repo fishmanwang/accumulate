@@ -1,6 +1,6 @@
-package com.accumulate.aggregation;
+package com.accumulate.bo;
 
-import com.accumulate.aggregation.password.Expiration;
+import com.accumulate.bo.password.Expiration;
 import com.accumulate.factory.PasswordPolicyFactory;
 import com.accumulate.utils.ObjectUtils;
 import com.accumulate.vo.password.ExpirationTip;

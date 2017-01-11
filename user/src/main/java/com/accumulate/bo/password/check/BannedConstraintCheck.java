@@ -1,13 +1,10 @@
-package com.accumulate.aggregation.password.check;
+package com.accumulate.bo.password.check;
 
 
 import com.accumulate.vo.password.PolicyTip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
 import java.util.Set;
 
 /**

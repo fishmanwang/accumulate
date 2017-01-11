@@ -1,4 +1,4 @@
-package com.accumulate.aggregation.password.check;
+package com.accumulate.bo.password.check;
 
 import com.accumulate.vo.password.PolicyTip;
 
