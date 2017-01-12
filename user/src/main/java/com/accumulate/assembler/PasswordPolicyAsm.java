@@ -1,6 +1,6 @@
 package com.accumulate.assembler;
 
-import com.accumulate.bo.PasswordPolicy;
+import com.accumulate.service.password.PasswordPolicy;
 import com.accumulate.dto.PasswordPolicyDto;
 import com.accumulate.factory.PasswordPolicyFactory;
 import com.accumulate.utils.ObjectUtils;

@@ -2,11 +2,11 @@ param : 从ui传递给controller的数据；        -- web层
 model : 从controller传给ui的数据；          -- web层
 dto ： controller、service相互传递的数据；
 bo  ： 含有业务逻辑的对象，用于service。比如：登录模块的LastFail。可考虑与vo合并。
-vo : 值对象； -- 使用方式待定
+vo : 值对象； -- 使用方式待定 -可用户service间数据交换，不用于conotroller
 entity : 对应数据库表；
 do : 领域对象，包含一个领域完整信息，和方法； -- 使用方式待定
 
-service : 服务层；包含一些不适合置于do功能；
+service : 服务层；包含一些不适合置于do功能，CRUD(待实践)；
 #assembler : 转换param，dto，model；      -- 可不要
 factory : 生成创建dto；
 repository ： 通过entity生成、创建do；

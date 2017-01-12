@@ -1,8 +1,8 @@
 package com.accumulate.factory;
 
-import com.accumulate.bo.PasswordPolicy;
-import com.accumulate.bo.password.Constraint;
-import com.accumulate.bo.password.Expiration;
+import com.accumulate.service.password.PasswordPolicy;
+import com.accumulate.service.password.Constraint;
+import com.accumulate.service.password.Expiration;
 import com.google.common.collect.Sets;
 
 import java.util.Set;
@@ -40,6 +40,16 @@ public class PasswordPolicyFactory {
         Expiration expiration = createDefaultExpiration();
         pp.setExpiration(expiration);
 
+        return pp;
+    }
+
+    private static final PasswordPolicy pp = createDefaut();
+
+    /**
+     * 获取默认密码策略
+     * @return
+     */
+    public static PasswordPolicy getDefault() {
         return pp;
     }
 

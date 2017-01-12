@@ -5,7 +5,7 @@ save : 新增或保存数据
 update : 更新数据
 delete : 删除数据
 remove : 软删除-设置删除标志位
-query : 搜索
+search : 搜索
 find : 查找，如果没有找到报错
 
 一定要遵守规范，方便做aspect。

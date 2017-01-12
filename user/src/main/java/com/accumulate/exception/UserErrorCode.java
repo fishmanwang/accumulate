@@ -12,6 +12,11 @@ public enum UserErrorCode implements ErrorCode {
     PASSWORD_POLICY_RETRY_NOT_EXIST(204, "密码策略中Id为{0}重试配置的不存在"),
     PASSWORD_POLICY_CONFIG_ENABLED_NOT_EXIST(205, "无激活的密码策略"),
     PASSWORD_POLICY_CONFIG_ENABLED_MORE_THAN_ONE(205, "激活的密码策略多于一个"),
+
+    USER_PASSWORD_VIOLATE(300, "密码不符合规定"),
+    USER_NAME_DUPLICATE(301, "多个用户使用相同的用户名"),
+    USER_NAME_NOT_EXISITS(302, "用户名为 {0} 的用户不存在"),
+    USER_NAME_EXISITS(303, "用户名为 {0} 的用户已存在"),
     ;
 
     private UserErrorCode(int code, String message) {
